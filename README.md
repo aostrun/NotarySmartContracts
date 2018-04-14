@@ -22,6 +22,11 @@ Create a coin with an initial supply and send an amount to your Ethereum wallet 
 ## How to use
 There are 2 small parts to successfully running this project.
 
+
+### Geth + Mist Startup
+1. 'geth --dev --ipcpath geth.ipc --datadir D:\EthDev --rpc --rpcapi admin,eth,miner,personal,web3,net console'
+2. 'mist --rpc http://localhost:8545'
+
 ### Part 1
 
 1. `git clone https://github.com/Nikhil22/angular-truffle-starter-dapp.git`

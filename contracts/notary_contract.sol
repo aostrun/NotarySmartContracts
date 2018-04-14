@@ -35,7 +35,7 @@ contract Notary{
     }
     
     event NewRecordCreated(uint256 recordId);
-    event Verified();
+    event Verified(bool result);
 
     
     /*
@@ -77,6 +77,7 @@ contract Notary{
         Record newRecord; // = Record(0, new address[](0), new address[](0), 0, 0, 0);
         newRecord.hash = hash;
 		newRecord.validUntil = validUntil;
+		newRecord.createdAt = now;
 		
         // Add parties and init values to true
         /*
@@ -143,6 +144,7 @@ contract Notary{
 	// Checks if the given hash matches recorded hash
     function verify(uint256 recordId, uint256 test_hash)
         external
+        constant
         returns (bool)
     {	
 		/* 
@@ -150,11 +152,13 @@ contract Notary{
 			wait 30s before testing again.
 		*/
 		require(records[recordId].lastFailedTest + 30 seconds < now);
+		require(validParty(recordId, msg.sender) == true);
         if(test_hash == records[recordId].hash){
-            emit Verified();
+            emit Verified(true);
             return true;
         }else{
 			records[recordId].lastFailedTest = now;
+            emit Verified(false);
             return false;
         }
         

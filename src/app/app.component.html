@@ -1,4 +1,4 @@
-<section class="hero is-medium is-info is-bold">
+<!--<section class="hero is-medium is-info is-bold">
   <div class="hero-body">
     <div class="container">
       <h1 class="title is-1">
@@ -9,71 +9,81 @@
       </h2>
     </div>
   </div>
-</section>
+</section>-->
 <br>
 <div class="container">
-  <h1 class="title">Send Metacoin</h1>
+  <h1 class="title">Notary</h1>
   <h1 class="title is-4 is-info help">{{status}}</h1>
 
-  <form #coinForm="ngForm">
+  <form #coinForm="ngForm" >
+  
     <div class="field">
-      <label class="label">Amount</label>
+      <label class="label">Adress1</label>
       <p class="control">
         <input
-          [(ngModel)]="sendingAmount"
-          class="input"
-          type="text"
-          placeholder="95"
-          name="sendingAmount"
-          required
-          #sendingAmountModel="ngModel">
-      </p>
-      <div *ngIf="sendingAmountModel.errors && (sendingAmountModel.dirty || sendingAmountModel.touched)"
-           class="help is-danger">
-          <p [hidden]="!sendingAmountModel.errors.required">
-            This field is required
-          </p>
-      </div>
-      <div *ngIf="!sendingAmountModel.errors && (sendingAmountModel.dirty || sendingAmountModel.touched)"
-           class="help is-danger">
-          <p [hidden]="canBeNumber(sendingAmount)">
-            Must be a number
-          </p>
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">To Address</label>
-      <p class="control">
-        <input
-          [(ngModel)]="recipientAddress"
-          name="recipientAddress"
+          [(ngModel)]="address1"
+          name="address1"
           class="input"
           type="text"
           placeholder="0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"
-          name="recipientAddress"
+          name="address1"
           required
-          #recipientAddressModel="ngModel"
+          #recipientAddressModel1="ngModel"
         >
       </p>
-      <div *ngIf="recipientAddressModel.errors && (recipientAddressModel.dirty || recipientAddressModel.touched)"
+      <div *ngIf="recipientAddressModel1.errors && (recipientAddressModel1.dirty || recipientAddressModel1.touched)"
            class="help is-danger">
-          <p [hidden]="!recipientAddressModel.errors.required">
+          <p [hidden]="!recipientAddressModel1.errors.required">
             This field is required
           </p>
       </div>
-      <div *ngIf="!recipientAddressModel.errors && (recipientAddressModel.dirty || recipientAddressModel.touched)"
+      <div *ngIf="!recipientAddressModel1.errors && (recipientAddressModel1.dirty || recipientAddressModel1.touched)"
            class="help is-danger">
-          <p [hidden]="canBeNumber(recipientAddress)">
+          <p [hidden]="canBeNumber(address1)">
             Must be a number
           </p>
       </div>
     </div>
+
+    <div class="field">
+      <label class="label">Adress1</label>
+      <p class="control">
+        <input
+          [(ngModel)]="address2"
+          name="address2"
+          class="input"
+          type="text"
+          placeholder="0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"
+          name="address2"
+          required
+          #recipientAddressModel2="ngModel"
+        >
+      </p>
+      <div *ngIf="recipientAddressModel2.errors && (recipientAddressModel2.dirty || recipientAddressModel2.touched)"
+           class="help is-danger">
+          <p [hidden]="!recipientAddressModel2.errors.required">
+            This field is required
+          </p>
+      </div>
+      <div *ngIf="!recipientAddressModel2.errors && (recipientAddressModel2.dirty || recipientAddressModel2.touched)"
+           class="help is-danger">
+          <p [hidden]="canBeNumber(address2)">
+            Must be a number
+          </p>
+      </div>
+    </div>
+
+    <div class="field">
+      <input type="file" (change)="changeListener($event)">
+    </div>
+
+    <h6 [hidden]="!isUploaded">Uploaded: {{this.fileName}}</h6>
 
     <div class="field is-grouped">
       <p class="control">
         <button
           [disabled]="!coinForm.valid"
-          (click)="sendCoin()"
+          (click)="createContract(coinForm)"
           class="button is-primary">
           Send
         </button>
@@ -81,6 +91,47 @@
     </div>
   </form>
 
-  <strong>Hint:</strong> open the browser developer console to view any errors and warnings.
+  <div>
+    <h3 [hidden]="!isDone">Your record ID is: {{this.recordId}}</h3>
+  </div>
+  <!--<strong>Hint:</strong> open the browser developer console to view any errors and warnings.-->
+  <br/>
+
+  <label class="label">Record ID to check:</label>
+  <p class="control">
+    <input
+      [(ngModel)]="recordIdToCheck"
+      name="recordIdToCheck"
+      class="input"
+      type="text"
+      placeholder="Enter record ID"
+      name="recordIdToCheck"
+      required
+      #recordIdModel="ngModel"
+    >
+  </p>
+  <div *ngIf="!recordIdModel.errors && (recordIdModel.dirty || recordIdModel.touched)"
+  class="help is-danger">
+ <p [hidden]="canBeNumber(recordIdToCheck)">
+   Must be a number
+ </p>
+</div>
+  <br/>
+  <div class="field is-grouped">
+    <p class="control">
+      <button
+        (click)="verify()"
+        class="button is-primary">
+        Verify
+      </button>
+    </p>
+  </div>
+  
 
 </div>
+
+
+
+
+
+

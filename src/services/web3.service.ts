@@ -26,6 +26,9 @@ export class Web3Service {
       );
       // Use Mist/MetaMask's provider
       this.web3 = new Web3(window.web3.currentProvider);
+
+      
+
     } else {
       console.warn(
         'No web3 detected. Falling back to ${environment.HttpProvider}. You should remove this fallback when you deploy live, as it\'s inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask'
@@ -35,6 +38,10 @@ export class Web3Service {
         new Web3.providers.HttpProvider(environment.HttpProvider)
       );
     }
+
+    
+
+    
   };
 
   getAccounts(): Observable<any>{

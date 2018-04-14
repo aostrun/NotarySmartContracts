@@ -1,4 +1,4 @@
-var Notary = artifacts.require("./notary_contract.sol");
+var Notary = artifacts.require("./Notary.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(Notary);

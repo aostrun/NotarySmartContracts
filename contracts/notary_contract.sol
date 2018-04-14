@@ -1,5 +1,13 @@
 pragma solidity ^0.4.21;
 
+/*
+    Author:         Andrijan Ostrun
+    Date:           14.4.2018.
+    Description:    Notary Smart Conract implemented as an entry
+                    to the "Around the Block" Workshop hackhaton.
+
+*/
+
 contract Notary{
     
     mapping( uint256 => Record ) records;
@@ -27,6 +35,8 @@ contract Notary{
     }
     
     event NewRecordCreated(uint256 recordId);
+    event Verified();
+
     
     /*
         Allows access to the record only to party registered to the record
@@ -97,6 +107,7 @@ contract Notary{
         }else{
             records[recordId].party2_ack = true;
         }
+        
         //records[recordId].allowances.push(msg.sender);
         
     }
@@ -140,6 +151,7 @@ contract Notary{
 		*/
 		require(records[recordId].lastFailedTest + 30 seconds < now);
         if(test_hash == records[recordId].hash){
+            emit Verified();
             return true;
         }else{
 			records[recordId].lastFailedTest = now;
